@@ -134,7 +134,6 @@ module Savon
             "Reference" => [
               { "DigestValue" => timestamp_digest }.merge(signed_info_transforms).merge(signed_info_digest_method),
               { "DigestValue" => body_digest }.merge(signed_info_transforms).merge(signed_info_digest_method),
-              { "DigestValue" => username_digest }.merge(signed_info_transforms).merge(signed_info_digest_method),
             ],
             :attributes! => {
               "CanonicalizationMethod/" => { "Algorithm" => ExclusiveXMLCanonicalizationAlgorithm },
@@ -174,11 +173,6 @@ module Savon
       
       def body_digest
         xml_digest("soapenv:Body")
-      end
-
-      def username_digest
-        #TODO- this breaks some tests - as username token not always present - not sure how to check it...
-        xml_digest("wsse:UsernameToken")
       end
 
       def canonicalize(xml_element)
