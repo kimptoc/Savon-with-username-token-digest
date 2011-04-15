@@ -89,15 +89,25 @@ module Savon
     # Returns the XML for a WSSE header.
     def to_xml
       @other_xml ||= Gyoku.xml(hash)
-      
-      xml = if signature?
+
+      xml = ""
+
+      xml += if signature?
         signature.to_xml
-      elsif username_token?
-        Gyoku.xml wsse_username_token.merge!(hash)
-      elsif timestamp?
-        Gyoku.xml wsse_timestamp.merge!(hash)
-      else
+            else
         ""
+      end
+
+      xml += if username_token?
+        Gyoku.xml wsse_username_token.merge!(hash)
+             else
+               ""
+      end
+
+      xml += if timestamp?
+        Gyoku.xml wsse_timestamp.merge!(hash)
+             else
+               ""
       end
       
       xml + @other_xml
