@@ -117,15 +117,16 @@ module Savon
 
     # Returns a Hash containing wsse:UsernameToken details.
     def wsse_username_token
+      id = signature.security_token_id unless signature.nil?
       if digest?
-        wsse_security "UsernameToken",
+        wsse_security "UsernameToken", id,
           "wsse:Username" => username,
           "wsse:Nonce" => nonce,
           "wsu:Created" => timestamp,
           "wsse:Password" => digest_password,
           :attributes! => { "wsse:Password" => { "Type" => PasswordDigestURI } }
       else
-        wsse_security "UsernameToken",
+        wsse_security "UsernameToken", id,
           "wsse:Username" => username,
           "wsse:Password" => password,
           :attributes! => { "wsse:Password" => { "Type" => PasswordTextURI } }
@@ -134,17 +135,18 @@ module Savon
 
     # Returns a Hash containing wsse:Timestamp details.
     def wsse_timestamp
-      wsse_security "Timestamp",
+      wsse_security "Timestamp", nil,
         "wsu:Created" => (created_at || Time.now).xs_datetime,
         "wsu:Expires" => (expires_at || (created_at || Time.now) + 60).xs_datetime
     end
 
     # Returns a Hash containing wsse:Security details for a given +tag+ and +hash+.
-    def wsse_security(tag, hash)
+    def wsse_security(tag, id, hash)
+      id = "#{tag}-#{count}" if id.nil?
       {
         "wsse:Security" => {
           "wsse:#{tag}" => hash,
-          :attributes! => { "wsse:#{tag}" => { "wsu:Id" => "#{tag}-#{count}", "xmlns:wsu" => WSUNamespace } }
+          :attributes! => { "wsse:#{tag}" => { "wsu:Id" => id, "xmlns:wsu" => WSUNamespace } }
         },
         :attributes! => { "wsse:Security" => { "xmlns:wsse" => WSENamespace } }
       }

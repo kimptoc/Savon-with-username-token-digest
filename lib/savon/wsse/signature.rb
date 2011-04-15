@@ -138,7 +138,7 @@ module Savon
             :attributes! => {
               "CanonicalizationMethod/" => { "Algorithm" => ExclusiveXMLCanonicalizationAlgorithm },
               "SignatureMethod/" => { "Algorithm" => RSASHA1SignatureAlgorithm },
-              "Reference" => { "URI" => ["##{timestamp_id}", "##{body_id}"] },
+              "Reference" => { "URI" => ["##{timestamp_id}", "##{body_id}", "##{security_token_id}"] },
             },
             :order! => [ "CanonicalizationMethod/", "SignatureMethod/", "Reference" ],
           },
@@ -159,7 +159,7 @@ module Savon
           :attributes! => { "wsu:Timestamp" => { "wsu:Id" => timestamp_id, "xmlns:wsu" => WSUNamespace } },
         }
       end
-      
+
       def the_signature
         raise MissingCertificate, "Expected a private_key for signing" unless certs.private_key
         xml = canonicalize("SignedInfo")
