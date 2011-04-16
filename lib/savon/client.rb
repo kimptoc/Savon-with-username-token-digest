@@ -4,6 +4,7 @@ require "savon/soap/request"
 require "savon/soap/response"
 require "savon/wsdl/document"
 require "savon/wsse"
+require "savon/wsa"
 
 module Savon
 
@@ -49,6 +50,11 @@ module Savon
       @wsse ||= WSSE.new
     end
 
+    # Returns the <tt>Savon::WSA</tt> object.
+    def wsa
+      @wsse ||= WSA.new
+    end
+
     # Returns the <tt>Savon::SOAP::XML</tt> object. Please notice, that this object is only available
     # in a block given to <tt>Savon::Client#request</tt>. A new instance of this object is created
     # per SOAP request.
@@ -74,6 +80,7 @@ module Savon
       preconfigure extract_options(args)
       process &block if block
       soap.wsse = wsse
+      soap.wsa = wsa
 
       response = SOAP::Request.new(http, soap).response
       set_cookie response.http.headers
@@ -143,7 +150,7 @@ module Savon
     # Yields a number of objects to a given +block+ depending on how many arguments
     # the block is expecting.
     def yield_objects(offset, &block)
-      yield *[soap, wsdl, http, wsse][offset, block.arity]
+      yield *[soap, wsdl, http, wsse, wsa][offset, block.arity]
     end
 
     # Evaluates a given +block+ inside this object. Stores the original block binding.
