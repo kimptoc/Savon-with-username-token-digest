@@ -52,7 +52,7 @@ module Savon
 
     # Returns the <tt>Savon::WSA</tt> object.
     def wsa
-      @wsse ||= WSA.new
+      @wsa ||= WSA.new
     end
 
     # Returns the <tt>Savon::SOAP::XML</tt> object. Please notice, that this object is only available
