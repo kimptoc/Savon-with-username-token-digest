@@ -186,7 +186,7 @@ module Savon
             "wsse:Password" => wsse.password,
               :attributes! => { "wsse:Password" => { "Type" => PasswordTextURI } }
                },
-        :attributes! => { "wsse:UsernameToken" => { "xmlns:wsu" => WSUNamespace } }
+        :attributes! => { "wsse:UsernameToken" => { "wsu:Id" => security_token_id, "xmlns:wsu" => WSUNamespace } }
         }
         end
       end
