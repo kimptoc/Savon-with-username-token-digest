@@ -178,6 +178,9 @@ module Savon
 
       def wsa_digest
         xml_digest("wsa:Action")
+        xml_digest("wsa:To")
+        xml_digest("wsa:MessageID")
+        xml_digest("wsa:ReplyTo")
       end
 
       def canonicalize(xml_element)
