@@ -139,7 +139,7 @@ module Savon
             :attributes! => {
               "CanonicalizationMethod/" => { "Algorithm" => ExclusiveXMLCanonicalizationAlgorithm },
               "SignatureMethod/" => { "Algorithm" => RSASHA1SignatureAlgorithm },
-              "Reference" => { "URI" => ["##{timestamp_id}", "##{body_id}","#Action", "##{security_token_id}"] },
+              "Reference" => { "URI" => ["##{timestamp_id}", "##{body_id}", "#Action", "#MessageID", "#ReplyTo", "#To", "##{security_token_id}"] },
             },
             :order! => [ "CanonicalizationMethod/", "SignatureMethod/", "Reference" ],
           },

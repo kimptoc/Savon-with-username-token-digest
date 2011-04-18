@@ -1,3 +1,7 @@
+THIS IS A HACKED VERSION TO ADD WS Addressing support.
+
+The tests are broken!
+
 Savon
 =====
 
