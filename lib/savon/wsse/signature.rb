@@ -174,7 +174,7 @@ module Savon
             "wsse:Password" => wsse.public_digest_password,
             :attributes! => { "wsse:Password" => { "Type" => PasswordDigestURI } }
             },
-          :attributes! => { "wsu:UsernameToken" => { "xmlns:wsu" => WSUNamespace } }
+          :attributes! => { "wsse:UsernameToken" => { "xmlns:wsu" => WSUNamespace } }
           }
         else
         {
@@ -182,8 +182,7 @@ module Savon
             "wsse:Username" => wsse.username,
             "wsse:Password" => wsse.password,
               :attributes! => { "wsse:Password" => { "Type" => PasswordTextURI } }
-               },
-            :attributes! => { "wsu:UsernameToken" => { "xmlns:wsu" => WSUNamespace } }
+               }
         }
         end
       end
