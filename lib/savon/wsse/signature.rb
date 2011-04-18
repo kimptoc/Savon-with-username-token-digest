@@ -134,7 +134,10 @@ module Savon
             "Reference" => [
               { "DigestValue" => timestamp_digest }.merge(signed_info_transforms).merge(signed_info_digest_method),
               { "DigestValue" => body_digest }.merge(signed_info_transforms).merge(signed_info_digest_method),
-              { "DigestValue" => wsa_digest }.merge(signed_info_transforms).merge(signed_info_digest_method),
+              { "DigestValue" => wsa_action_digest }.merge(signed_info_transforms).merge(signed_info_digest_method),
+              { "DigestValue" => wsa_message_id_digest }.merge(signed_info_transforms).merge(signed_info_digest_method),
+              { "DigestValue" => wsa_reply_to_digest }.merge(signed_info_transforms).merge(signed_info_digest_method),
+              { "DigestValue" => wsa_to_digest }.merge(signed_info_transforms).merge(signed_info_digest_method),
             ],
             :attributes! => {
               "CanonicalizationMethod/" => { "Algorithm" => ExclusiveXMLCanonicalizationAlgorithm },
@@ -176,10 +179,19 @@ module Savon
         xml_digest("soapenv:Body")
       end
 
-      def wsa_digest
+      def wsa_action_digest
         xml_digest("wsa:Action")
+      end
+
+      def wsa_to_digest
         xml_digest("wsa:To")
+      end
+
+      def wsa_message_id_digest
         xml_digest("wsa:MessageID")
+      end
+
+      def wsa_reply_to_digest
         xml_digest("wsa:ReplyTo")
       end
 
