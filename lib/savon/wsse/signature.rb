@@ -170,7 +170,7 @@ module Savon
            "wsse:UsernameToken" => {
             "wsse:Username" => wsse.username,
             "wsse:Nonce" => wsse.public_nonce,
-            "wsu:Created" => wsse.timestamp,
+            "wsu:Created" => wsse.public_timestamp,
             "wsse:Password" => wsse.public_digest_password,
             :attributes! => { "wsse:Password" => { "Type" => PasswordDigestURI } }
             },

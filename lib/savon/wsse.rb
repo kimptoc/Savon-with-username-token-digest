@@ -112,6 +112,10 @@ module Savon
       digest_password
     end
 
+    def public_timestamp
+      timestamp
+    end
+
   private
 
     # Returns a Hash containing wsse:UsernameToken details.
