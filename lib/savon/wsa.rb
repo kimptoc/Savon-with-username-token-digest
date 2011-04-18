@@ -10,8 +10,11 @@ module Savon
   # Provides WS-Addressing.
   class WSA
 
-    # Namespace for WS Security Secext.
+    # Namespace for WS Addressing.
     WSANamespace = "http://schemas.xmlsoap.org/ws/2004/08/addressing"
+
+    # Namespace for WS Security Utility.// dupe from WSSE...
+    WSUNamespace = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
 
     # Returns a value from the WSA Hash.
     def [](key)
@@ -52,7 +55,7 @@ module Savon
       value = {"wsa:"+nested_tag => value } unless nested_tag.nil?
       {
         "wsa:#{tag}" => value,
-        :attributes! => { "wsa:#{tag}" => { "wsu:Id" => id} }
+        :attributes! => { "wsa:#{tag}" => { "wsu:Id" => id, "xmlns:wsa" => WSANamespace , "xmlns:wsu" => WSUNamespace } }
       }
     end
 

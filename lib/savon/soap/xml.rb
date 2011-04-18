@@ -18,8 +18,7 @@ module Savon
       # XML Schema Type namespaces.
       SchemaTypes = {
         "xmlns:xsd" => "http://www.w3.org/2001/XMLSchema",
-        "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
-        "xmlns:wsa" => "http://schemas.xmlsoap.org/ws/2004/08/addressing" # TODO - this in a better way, probably driver via WSA class
+        "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance"
       }
 
       # Converts the given SOAP response +value+ (XML or Hash) into a normalized Hash.
