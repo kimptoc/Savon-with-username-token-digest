@@ -91,7 +91,7 @@ module Savon
       @other_xml ||= Gyoku.xml(hash)
 
       xml = if signature?
-        signature.to_xml
+        signature.to_xml self
       elsif username_token?
         Gyoku.xml wsse_username_token.merge!(hash)
       elsif timestamp?
