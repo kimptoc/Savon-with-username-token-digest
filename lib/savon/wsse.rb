@@ -103,6 +103,15 @@ module Savon
       xml + @other_xml
     end
 
+    #HACK :(
+    def public_nonce
+      nonce
+    end
+
+    def public_digest_password
+      digest_password
+    end
+
   private
 
     # Returns a Hash containing wsse:UsernameToken details.
