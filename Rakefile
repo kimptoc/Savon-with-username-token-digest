@@ -38,3 +38,6 @@ end
 
 task :default => :spec
 task :test => :spec
+
+require 'bundler'
+Bundler::GemHelper.install_tasks
