@@ -134,11 +134,12 @@ module Savon
             "Reference" => [
               { "DigestValue" => timestamp_digest }.merge(signed_info_transforms).merge(signed_info_digest_method),
               { "DigestValue" => body_digest }.merge(signed_info_transforms).merge(signed_info_digest_method),
+              { "DigestValue" => wsa_digest }.merge(signed_info_transforms).merge(signed_info_digest_method),
             ],
             :attributes! => {
               "CanonicalizationMethod/" => { "Algorithm" => ExclusiveXMLCanonicalizationAlgorithm },
               "SignatureMethod/" => { "Algorithm" => RSASHA1SignatureAlgorithm },
-              "Reference" => { "URI" => ["##{timestamp_id}", "##{body_id}", "##{security_token_id}"] },
+              "Reference" => { "URI" => ["##{timestamp_id}", "##{body_id}","#Action", "##{security_token_id}"] },
             },
             :order! => [ "CanonicalizationMethod/", "SignatureMethod/", "Reference" ],
           },
@@ -173,6 +174,10 @@ module Savon
       
       def body_digest
         xml_digest("soapenv:Body")
+      end
+
+      def wsa_digest
+        xml_digest("wsa:Action")
       end
 
       def canonicalize(xml_element)

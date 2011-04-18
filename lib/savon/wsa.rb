@@ -51,7 +51,7 @@ module Savon
   private
 
     def wsa_element(tag, value, nested_tag=nil, id=nil)
-      id = "#{tag}-#{count}" if id.nil?
+      id = "#{tag}" if id.nil?
       value = {"wsa:"+nested_tag => value } unless nested_tag.nil?
       {
         "wsa:#{tag}" => value,
