@@ -140,21 +140,12 @@ module Savon
         "wsu:Expires" => (expires_at || (created_at || Time.now) + 60).xs_datetime
     end
 
-    def wsse_timestamp_hack id
-      {
-          "wsu:Created" => (created_at || Time.now).xs_datetime,
-          "wsu:Expires" => (expires_at || (created_at || Time.now) + 60).xs_datetime,
-           :attributes! => { "wsse:Timestamp" => { "wsu:Id" => id, "xmlns:wsu" => WSUNamespace } }
-      }
-    end
-
     # Returns a Hash containing wsse:Security details for a given +tag+ and +hash+.
     def wsse_security(tag, id, hash)
       id = "#{tag}-#{count}" if id.nil?
       tsid = "Timestamp-#{count}"
       {
         "wsse:Security" => {
-          "wsse:Timestamp" => wsse_timestamp_hack(tsid),
           "wsse:#{tag}" => hash,
           :attributes! => { "wsse:#{tag}" => { "wsu:Id" => id, "xmlns:wsu" => WSUNamespace } }
         },
