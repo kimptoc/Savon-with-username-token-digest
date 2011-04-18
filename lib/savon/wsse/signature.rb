@@ -180,9 +180,12 @@ module Savon
         {
             "wsse:UsernameToken" => {
             "wsse:Username" => wsse.username,
+            "wsse:Nonce" => wsse.public_nonce,
+            "wsu:Created" => wsse.public_timestamp,
             "wsse:Password" => wsse.password,
               :attributes! => { "wsse:Password" => { "Type" => PasswordTextURI } }
-               }
+               },
+        :attributes! => { "wsse:UsernameToken" => { "xmlns:wsu" => WSUNamespace } }
         }
         end
       end
