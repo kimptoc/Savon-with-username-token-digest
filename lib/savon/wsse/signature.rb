@@ -21,6 +21,7 @@ module Savon
       SHA1DigestAlgorithm = 'http://www.w3.org/2000/09/xmldsig#sha1'.freeze
       
       X509v3ValueType = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3'.freeze
+      UsernameTokenValueType = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#UsernameToken'.freeze
       Base64EncodingType = 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary'.freeze
       
       SignatureNamespace = 'http://www.w3.org/2000/09/xmldsig#'.freeze
@@ -111,7 +112,7 @@ module Savon
             "wsse:SecurityTokenReference" => {
               "wsse:Reference/" => nil,
               :attributes! => { "wsse:Reference/" => {
-                "ValueType" => X509v3ValueType,
+                "ValueType" => UsernameTokenValueType,
                 "URI" => "##{security_token_id}",
               } }
             },
@@ -174,7 +175,7 @@ module Savon
             "wsse:Password" => wsse.public_digest_password,
             :attributes! => { "wsse:Password" => { "Type" => PasswordDigestURI } }
             },
-          :attributes! => { "wsse:UsernameToken" => { "xmlns:wsu" => WSUNamespace } }
+          :attributes! => { "wsse:UsernameToken" => { "wsu:Id" => security_token_id, "xmlns:wsu" => WSUNamespace } }
           }
         else
         {
