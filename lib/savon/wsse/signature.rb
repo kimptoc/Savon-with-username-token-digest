@@ -165,14 +165,18 @@ module Savon
       end
 
       def username_tag(wsse)
-#        if digest?
-#          wsse_security "UsernameToken", id,
-#            "wsse:Username" => username,
-#            "wsse:Nonce" => nonce,
-#            "wsu:Created" => timestamp,
-#            "wsse:Password" => digest_password,
-#            :attributes! => { "wsse:Password" => { "Type" => PasswordDigestURI } }
-#        else
+        if wsse.digest?
+          {
+           "wsse:UsernameToken" => {
+            "wsse:Username" => wsse.username,
+            "wsse:Nonce" => wsse.nonce,
+            "wsu:Created" => wsse.timestamp,
+            "wsse:Password" => wsse.digest_password,
+            :attributes! => { "wsse:Password" => { "Type" => PasswordDigestURI } }
+            },
+          :attributes! => { "wsu:UsernameToken" => { "xmlns:wsu" => WSUNamespace } }
+          }
+        else
         {
             "wsse:UsernameToken" => {
             "wsse:Username" => wsse.username,
@@ -181,8 +185,7 @@ module Savon
                },
             :attributes! => { "wsu:UsernameToken" => { "xmlns:wsu" => WSUNamespace } }
         }
-#        end
-
+        end
       end
 
       def the_signature
