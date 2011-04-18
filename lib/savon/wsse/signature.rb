@@ -59,7 +59,7 @@ module Savon
       end
       
       def to_xml
-        security = {}.deep_merge(timestamp).deep_merge(username).deep_merge(signature)
+        security = {}.deep_merge(timestamp).deep_merge(username_tag).deep_merge(signature)
         security.deep_merge!(binary_security_token) if certs.cert
 
         security.merge! :order! => []
@@ -164,7 +164,7 @@ module Savon
         }
       end
 
-      def username
+      def username_tag
 #        if digest?
 #          wsse_security "UsernameToken", id,
 #            "wsse:Username" => username,
