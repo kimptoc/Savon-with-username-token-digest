@@ -52,7 +52,7 @@ module Savon
       value = {"wsa:"+nested_tag => value } unless nested_tag.nil?
       {
         "wsa:#{tag}" => value,
-        :attributes! => { "wsa:#{tag}" => { "wsu:Id" => id, "xmlns:wsa" => WSANamespace } }
+        :attributes! => { "wsa:#{tag}" => { "wsu:Id" => id} }
       }
     end
 
