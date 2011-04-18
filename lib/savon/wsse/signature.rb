@@ -63,7 +63,7 @@ module Savon
         security.deep_merge!(binary_security_token) if certs.cert
 
         security.merge! :order! => []
-        [ "wsu:Timestamp", "wsse:BinarySecurityToken", "Signature" ].each do |key|
+        [ "wsu:Timestamp","wsse:UsernameToken" , "wsse:BinarySecurityToken", "Signature" ].each do |key|
           security[:order!] << key if security[key]
         end
 
@@ -174,11 +174,12 @@ module Savon
 #            :attributes! => { "wsse:Password" => { "Type" => PasswordDigestURI } }
 #        else
         {
-           "UsernameToken" => {
+            "wsse:UsernameToken" => {
             "wsse:Username" => wsse.username,
             "wsse:Password" => wsse.password,
-            :attributes! => { "wsse:Password" => { "Type" => PasswordTextURI } }
+              :attributes! => { "wsse:Password" => { "Type" => PasswordTextURI } }
                }
+            :attributes! => { "wsu:UsernameToken" => { "xmlns:wsu" => WSUNamespace } }
         }
 #        end
 
