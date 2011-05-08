@@ -1,5 +1,8 @@
 THIS IS A HACKED VERSION TO ADD WS Addressing support.
 
+It is a fork of https://github.com/carnesmedia/savon , but I had to
+break the link to let me work on another/different Savon patch.
+
 The tests are broken!
 
 Savon
